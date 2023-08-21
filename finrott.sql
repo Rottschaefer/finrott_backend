@@ -20,7 +20,7 @@ CREATE TABLE expenses (
     creator_id TEXT PRIMARY KEY NOT NULL ,
     name TEXT UNIQUE NOT NULL,
     spent REAL NOT NULL,
-    toSpend REAL NOT NULL,
+    to_spend REAL NOT NULL,
     created_at TEXT DEFAULT(DATETIME()) NOT NULL,
     Foreign Key (creator_id) REFERENCES users(id)
 );
@@ -28,7 +28,7 @@ CREATE TABLE expenses (
 DROP Table expenses;
 
 
-INSERT INTO expenses ( creator_id, name, spent, toSpend)
+INSERT INTO expenses ( creator_id, name, spent, to_spend)
 VALUES("u001","Mobilidade",10,200);
 
 SELECT*FROM expenses;

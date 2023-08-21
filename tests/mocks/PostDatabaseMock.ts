@@ -3,6 +3,7 @@ import { BaseDatabase } from "../../src/database/BaseDatabase";
 import { usersMock } from "../mocks/UserDataBaseMock"
 
 
+
 export let postsMock: PostDB[] = [{
     id: "id-mock-post-fulano",
     creator_id: "id-mock-fulano",

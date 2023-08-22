@@ -3,7 +3,7 @@ import { IdGeneratorMock } from "../../mocks/IdGeneratorMock";
 import { ExpenseDatabaseMock } from "../../mocks/ExpenseDataBaseMock";
 import { TokenManagerMock } from "../../mocks/TokenManagerMock";
 import { GetExpensesOutputDTO } from "../../../src/dtos/Expenses/GetExpensesDTO";
-import { string } from "zod";
+import { any, string } from "zod";
 
 describe("Testando getExpenses", () => {
   const expenseBusiness = new ExpenseBusiness(
@@ -19,6 +19,7 @@ describe("Testando getExpenses", () => {
 
     expect(expenseMockModel).toEqual([
       {
+        id: expect.any(Number),
         creatorId: "id-mock-fulano",
         name: "Comida",
         spent: 20,

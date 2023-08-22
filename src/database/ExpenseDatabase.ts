@@ -1,5 +1,6 @@
 import { GetExpensesDataBaseInputDTO } from "../dtos/Expenses/GetExpensesDTO";
-import { ExpenseDB } from "../models/Expenses";
+import { UpdateExpenseInputDTO } from "../dtos/Expenses/UpdateExpenseDTO";
+import { Expense, ExpenseDB } from "../models/Expenses";
 import { BaseDatabase } from "./BaseDatabase";
 
 export class ExpenseDatabase extends BaseDatabase {
@@ -13,15 +14,20 @@ export class ExpenseDatabase extends BaseDatabase {
     return output;
   };
 
-  //   public createPost = async (NewPostDB: PostDB) => {
-  //     await BaseDatabase.connection(PostDatabase.TABLE_POSTS).insert(NewPostDB);
-  //   };
+  public createExpense = async (input: ExpenseDB) => {
+    await BaseDatabase.connection(ExpenseDatabase.TABLE_EXPENSES).insert(input);
+  };
 
-  //   public editPost = async (id: string, content: string) => {
-  //     await BaseDatabase.connection(PostDatabase.TABLE_POSTS)
-  //       .update({ content: content, updated_at: new Date().toISOString() })
-  //       .where({ id });
-  //   };
+  public updateExpense = async (input: UpdateExpenseInputDTO) => {
+    await BaseDatabase.connection(ExpenseDatabase.TABLE_EXPENSES)
+      .update({
+        name: input.name,
+        spent: input.spent,
+        to_spend: input.toSpend,
+        updated_at: new Date().toISOString(),
+      })
+      .where({ id: input.id });
+  };
 
   //   public deletePost = async (id: string) => {
   //     await BaseDatabase.connection(PostDatabase.TABLE_POSTS)

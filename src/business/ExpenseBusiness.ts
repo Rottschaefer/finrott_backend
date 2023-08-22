@@ -1,10 +1,12 @@
 import { ExpenseDatabase } from "../database/ExpenseDatabase";
+import { CreateExpenseInputDTO } from "../dtos/Expenses/CreateExpenseDTO";
 import {
   GetExpensesInputDTO,
   GetExpensesOutputDTO,
 } from "../dtos/Expenses/GetExpensesDTO";
+import { UpdateExpenseInputDTO } from "../dtos/Expenses/UpdateExpenseDTO";
 import { BadRequestError } from "../errors/BadRequestError";
-import { Expense } from "../models/Expenses";
+import { Expense, ExpenseDB } from "../models/Expenses";
 import { IdGenerator } from "../services/IdGenerator";
 import { TokenManager } from "../services/TokenManager";
 
@@ -55,69 +57,47 @@ export class ExpenseBusiness {
     return output;
   };
 
-  //   public createPost = async (input: CreatePostInputDTO) => {
-  //     const { content, token } = input;
+  public createExpense = async (input: CreateExpenseInputDTO) => {
+    const { token, name, spent, toSpend } = input;
 
-  //     const payload = this.tokenManager.getPayload(token);
+    const payload = this.tokenManager.getPayload(token);
 
-  //     console.log(payload);
+    console.log(payload);
 
-  //     if (!payload) {
-  //       throw new BadRequestError("Token inválido");
-  //     }
+    if (!payload) {
+      throw new BadRequestError("Token inválido");
+    }
 
-  //     const id = this.idGenerator.generate();
+    const id = this.idGenerator.generate();
 
-  //     const newPost = new Post(
-  //       id,
-  //       payload.id,
-  //       content,
-  //       0,
-  //       0,
-  //       new Date().toISOString(),
-  //       new Date().toISOString()
-  //     );
+    const newExpense = new Expense(
+      payload.id,
+      name,
+      spent,
+      toSpend,
+      new Date().toISOString(),
+      new Date().toISOString()
+    );
 
-  //     const newPostDB: PostDB = {
-  //       id: newPost.getId(),
-  //       creator_id: newPost.getCreatorId(),
-  //       content: newPost.getContent(),
-  //       likes: newPost.getLikes(),
-  //       dislikes: newPost.getDislikes(),
-  //       created_at: newPost.getCreatedAt(),
-  //       updated_at: newPost.getUpdatedAt(),
-  //     };
+    const newExpenseDB: ExpenseDB = {
+      creator_id: newExpense.getCreatorId(),
+      name: newExpense.getName(),
+      spent: newExpense.getSpent(),
+      to_spend: newExpense.getToSpend(),
+      created_at: newExpense.getCreatedAt(),
+      updated_at: newExpense.getUpdatedAt(),
+    };
 
-  //     this.postDatabase.createPost(newPostDB);
+    this.expenseDatabase.createExpense(newExpenseDB);
+  };
 
-  //     return { content }; //Para os testes
-  //   };
+  public updateExpense = async (input: UpdateExpenseInputDTO) => {
+    const { id, name, spent, toSpend } = input;
 
-  //   public editPost = async (input: EditPostInputDTO) => {
-  //     const { id, token, content } = input;
+    const updatedPosts = await this.expenseDatabase.updateExpense(input);
 
-  //     const payload = this.tokenManager.getPayload(token);
-
-  //     if (!payload) {
-  //       throw new BadRequestError("Token inválido");
-  //     }
-
-  //     const [posts] = await this.postDatabase.getPosts();
-
-  //     const postDB = posts.find((post) => {
-  //       return post.id === id && post.creator_id === payload.id;
-  //     });
-
-  //     if (!postDB) {
-  //       throw new BadRequestError(
-  //         "Este usuário não possui nenhum post com esse id"
-  //       );
-  //     }
-
-  //     const updatedPosts = await this.postDatabase.editPost(id, content);
-
-  //     return updatedPosts; // Para os testes
-  //   };
+    return updatedPosts; // Para os testes
+  };
 
   //   public deletePost = async (input: DeletePostInputDTO) => {
   //     const { id, token } = input;

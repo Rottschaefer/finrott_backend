@@ -1,9 +1,6 @@
 import express from "express";
 import { IdGenerator } from "../services/IdGenerator";
 import { TokenManager } from "../services/TokenManager";
-import { PostBusiness } from "../business/PostBusiness";
-import { PostController } from "../controller/PostController";
-import { PostDatabase } from "../database/PostDatabase";
 import { ExpenseController } from "../controller/ExpenseController";
 import { ExpenseBusiness } from "../business/ExpenseBusiness";
 import { ExpenseDatabase } from "../database/ExpenseDatabase";
@@ -19,9 +16,7 @@ const expenseController = new ExpenseController(
 );
 
 expenseRouter.get("/", expenseController.getExpensesByUserId);
-// expenseRouter.get("/:id/verify-like", expenseController.verifyLike);
 
-// expenseRouter.post("/", expenseController.createPost);
-// expenseRouter.put("/:id", expenseController.editPost);
-// expenseRouter.delete("/:id", expenseController.deletePost);
-// expenseRouter.put("/:id/like", expenseController.likePost);
+expenseRouter.post("/", expenseController.createExpense);
+expenseRouter.put("/:id", expenseController.updateExpense);
+expenseRouter.delete("/:id", expenseController.deleteExpense);

@@ -1,4 +1,5 @@
 export interface ExpenseDB {
+  // id: number;
   creator_id: string;
   name: string;
   spent: number;
@@ -18,20 +19,28 @@ export interface ExpenseDB {
 
 export class Expense {
   constructor(
-    private creator_id: string,
+    // private id: number,
+    private creatorId: string,
     private name: string,
     private spent: number,
-    private to_spend: number,
-    private created_at: string,
-    private updated_at: string
+    private toSpend: number,
+    private createdAt: string,
+    private updatedAt: string
   ) {}
 
+  // public getId = (): number => {
+  //   return this.id;
+  // };
+
+  // public setId = (value: number) => {
+  //   return (this.id = value);
+  // };
   public getCreatorId = (): string => {
-    return this.creator_id;
+    return this.creatorId;
   };
 
   public setCreatorId = (value: string) => {
-    return (this.creator_id = value);
+    return (this.creatorId = value);
   };
 
   public getName = (): string => {
@@ -51,26 +60,26 @@ export class Expense {
   };
 
   public getToSpend = (): number => {
-    return this.to_spend;
+    return this.toSpend;
   };
 
   public setToSpend = (value: number) => {
-    return (this.to_spend = value);
+    return (this.toSpend = value);
   };
 
   public getCreatedAt = (): string => {
-    return this.created_at;
+    return this.createdAt;
   };
 
   public setCreatedAt = (value: string) => {
-    return (this.created_at = value);
+    return (this.createdAt = value);
   };
 
   public getUpdatedAt = (): string => {
-    return this.updated_at;
+    return this.updatedAt;
   };
 
   public setUpdatedAt = (value: string) => {
-    return (this.updated_at = value);
+    return (this.updatedAt = value);
   };
 }

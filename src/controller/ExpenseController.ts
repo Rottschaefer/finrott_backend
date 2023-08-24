@@ -4,6 +4,8 @@ import { ZodError } from "zod";
 import { BaseError } from "../errors/BaseError";
 import { ExpenseBusiness } from "../business/ExpenseBusiness";
 import { CreateEsxpenseSchema } from "../dtos/Expenses/CreateExpenseDTO";
+import { UpdateExpenseInputSchema } from "../dtos/Expenses/UpdateExpenseDTO";
+import { DeleteExpensesSchema } from "../dtos/Expenses/DeleteExpenseInputDTO";
 
 export class ExpenseController {
   constructor(private expenseBusiness: ExpenseBusiness) {}
@@ -53,93 +55,48 @@ export class ExpenseController {
     }
   };
 
-  //   public editPost = async (req: Request, res: Response) => {
-  //     try {
-  //       const input = EditPostInputSchema.parse({
-  //         id: req.params.id,
-  //         token: req.headers.authorization,
-  //         content: req.body.content,
-  //       });
+  public updateExpense = async (req: Request, res: Response) => {
+    try {
+      const input = UpdateExpenseInputSchema.parse({
+        id: req.params.id,
+        name: req.body.name,
+        spent: req.body.content,
+        toSpend: req.body.toSpend,
+      });
 
-  //       await this.postBusiness.editPost(input);
+      await this.expenseBusiness.updateExpense(input);
 
-  //       res.status(200).send({ content: input.content });
-  //     } catch (error) {
-  //       console.log(error);
-  //       if (error instanceof ZodError) {
-  //         res.status(400).send(error.issues);
-  //       } else if (error instanceof BaseError) {
-  //         res.status(error.statusCode).send(error.message);
-  //       } else {
-  //         res.status(500).send("Erro inesperado");
-  //       }
-  //     }
-  //   };
+      res.status(200);
+    } catch (error) {
+      console.log(error);
+      if (error instanceof ZodError) {
+        res.status(400).send(error.issues);
+      } else if (error instanceof BaseError) {
+        res.status(error.statusCode).send(error.message);
+      } else {
+        res.status(500).send("Erro inesperado");
+      }
+    }
+  };
 
-  //   public deletePost = async (req: Request, res: Response) => {
-  //     try {
-  //       const input = DeletePostInputSchema.parse({
-  //         id: req.params.id,
-  //         token: req.headers.authorization,
-  //       });
+  public deleteExpense = async (req: Request, res: Response) => {
+    try {
+      const input = DeleteExpensesSchema.parse({
+        id: req.params.id,
+      });
 
-  //       await this.postBusiness.deletePost(input);
+      await this.expenseBusiness.deleteExpense(input);
 
-  //       res.status(200).send("Post deletado");
-  //     } catch (error) {
-  //       console.log(error);
-  //       if (error instanceof ZodError) {
-  //         res.status(400).send(error.issues);
-  //       } else if (error instanceof BaseError) {
-  //         res.status(error.statusCode).send(error.message);
-  //       } else {
-  //         res.status(500).send("Erro inesperado");
-  //       }
-  //     }
-  //   };
-
-  //   public likePost = async (req: Request, res: Response) => {
-  //     try {
-  //       const input = LikePostInputSchema.parse({
-  //         id: req.params.id,
-  //         token: req.headers.authorization,
-  //         like: req.body.like,
-  //       });
-
-  //       const isLiked = await this.postBusiness.likePost(input);
-
-  //       res.status(200).send({ isLiked: isLiked });
-  //     } catch (error) {
-  //       console.log(error);
-  //       if (error instanceof ZodError) {
-  //         res.status(400).send(error.issues);
-  //       } else if (error instanceof BaseError) {
-  //         res.status(error.statusCode).send(error.message);
-  //       } else {
-  //         res.status(500).send("Erro inesperado");
-  //       }
-  //     }
-  //   };
-
-  //   public verifyLike = async (req: Request, res: Response) => {
-  //     try {
-  //       const input = VerifyLikeInputSchema.parse({
-  //         id: req.params.id,
-  //         token: req.headers.authorization,
-  //       });
-
-  //       const likeSituation = await this.postBusiness.verifyLike(input);
-
-  //       res.status(200).send({ likeSituation });
-  //     } catch (error) {
-  //       console.log(error);
-  //       if (error instanceof ZodError) {
-  //         res.status(400).send(error.issues);
-  //       } else if (error instanceof BaseError) {
-  //         res.status(error.statusCode).send(error.message);
-  //       } else {
-  //         res.status(500).send("Erro inesperado");
-  //       }
-  //     }
-  //   };
+      res.status(200).send("Post deletado");
+    } catch (error) {
+      console.log(error);
+      if (error instanceof ZodError) {
+        res.status(400).send(error.issues);
+      } else if (error instanceof BaseError) {
+        res.status(error.statusCode).send(error.message);
+      } else {
+        res.status(500).send("Erro inesperado");
+      }
+    }
+  };
 }

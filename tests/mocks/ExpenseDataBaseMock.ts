@@ -1,6 +1,4 @@
-import { PostDB } from "../../src/models/Posts";
 import { BaseDatabase } from "../../src/database/BaseDatabase";
-import { usersMock } from "../mocks/UserDataBaseMock";
 import { ExpenseDB } from "../../src/models/Expenses";
 import { GetExpensesDataBaseInputDTO } from "../../src/dtos/Expenses/GetExpensesDTO";
 import { UpdateExpenseInputDTO } from "../../src/dtos/Expenses/UpdateExpenseDTO";
@@ -54,45 +52,7 @@ export class ExpenseDatabaseMock extends BaseDatabase {
     });
   };
 
-  //   public deletePost = async (id: string) => {
-  //     postsMock = postsMock.filter((post) => post.id !== id);
-  //   };
-
-  //   public likePost = async (
-  //     likesNumber: number,
-  //     dislikesNumber: number,
-  //     post_id: string,
-  //     user_id: string,
-  //     isLiked: number
-  //   ) => {
-  //     postsMock = postsMock.map((post) => {
-  //       if (post.id === post_id) {
-  //         post.likes = likesNumber;
-  //         post.dislikes = dislikesNumber;
-  //       }
-
-  //       return post;
-  //     });
-  //   };
-
-  //   public dislikePost = async (
-  //     likesNumber: number,
-  //     dislikesNumber: number,
-  //     post_id: string,
-  //     user_id: string,
-  //     isLiked: number
-  //   ) => {
-  //     postsMock.map((post) => {
-  //       if (post.id === post_id) {
-  //         post.likes = likesNumber;
-  //         post.dislikes = dislikesNumber;
-  //       }
-  //     });
-  //   };
-
-  //   public verifyLike = async (post_id: string, user_id: string) => {
-  //     let isLiked = 0;
-
-  //     return isLiked;
-  //   };
+  public deleteExpense = async (id: number) => {
+    expensesMock = expensesMock.filter((expense) => expense.id !== id);
+  };
 }

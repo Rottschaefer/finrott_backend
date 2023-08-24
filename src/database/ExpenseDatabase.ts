@@ -29,11 +29,11 @@ export class ExpenseDatabase extends BaseDatabase {
       .where({ id: input.id });
   };
 
-  //   public deletePost = async (id: string) => {
-  //     await BaseDatabase.connection(PostDatabase.TABLE_POSTS)
-  //       .delete()
-  //       .where({ id });
-  //   };
+  public deleteExpense = async (id: number) => {
+    await BaseDatabase.connection(ExpenseDatabase.TABLE_EXPENSES)
+      .delete()
+      .where({ id });
+  };
 
   //   public likePost = async (
   //     likesNumber: number,

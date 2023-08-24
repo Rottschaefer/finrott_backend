@@ -11,10 +11,10 @@ export interface UpdateExpenseInputDTO {
 //   content: string;
 // }
 
-export const EditPostInputSchema = z
+export const UpdateExpenseInputSchema = z
   .object({
     id: z
-      .string({
+      .number({
         required_error: "id da expense é obrigatório para editá-lo",
         invalid_type_error: "id da expense precisa ser number",
       })

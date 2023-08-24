@@ -1,5 +1,6 @@
 import { ExpenseDatabase } from "../database/ExpenseDatabase";
 import { CreateExpenseInputDTO } from "../dtos/Expenses/CreateExpenseDTO";
+import { DeleteExpensesInputDTO } from "../dtos/Expenses/DeleteExpenseInputDTO";
 import {
   GetExpensesInputDTO,
   GetExpensesOutputDTO,
@@ -99,40 +100,11 @@ export class ExpenseBusiness {
     return updatedPosts; // Para os testes
   };
 
-  //   public deletePost = async (input: DeletePostInputDTO) => {
-  //     const { id, token } = input;
+  public deleteExpense = async (input: DeleteExpensesInputDTO) => {
+    const { id } = input;
 
-  //     const payload = this.tokenManager.getPayload(token);
-
-  //     if (!payload) {
-  //       throw new BadRequestError("Token inválido");
-  //     }
-
-  //     const [posts] = await this.postDatabase.getPosts();
-
-  //     let postDB;
-
-  //     if (payload.role === USER_ROLES.NORMAL) {
-  //       postDB = posts.find((post) => {
-  //         return post.id === id && post.creator_id === payload.id;
-  //       });
-  //     }
-
-  //     if (payload.role === USER_ROLES.ADMIN) {
-  //       postDB = posts.find((post) => {
-  //         return post.id === id;
-  //       });
-  //       console.log(payload.role);
-  //     }
-
-  //     if (!postDB) {
-  //       throw new BadRequestError(
-  //         "Este usuário não possui nenhum post com esse id"
-  //       );
-  //     }
-
-  //     await this.postDatabase.deletePost(id);
-  //   };
+    await this.expenseDatabase.deleteExpense(id);
+  };
 
   //   public likePost = async (input: LikePostInputDTO) => {
   //     const { id, token, like } = input;

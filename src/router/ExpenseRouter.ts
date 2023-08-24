@@ -18,6 +18,5 @@ const expenseController = new ExpenseController(
 expenseRouter.get("/", expenseController.getExpensesByUserId);
 
 expenseRouter.post("/", expenseController.createExpense);
-// expenseRouter.put("/:id", expenseController.editPost);
-// expenseRouter.delete("/:id", expenseController.deletePost);
-// expenseRouter.put("/:id/like", expenseController.likePost);
+expenseRouter.put("/:id", expenseController.updateExpense);
+expenseRouter.delete("/:id", expenseController.deleteExpense);

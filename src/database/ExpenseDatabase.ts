@@ -9,7 +9,7 @@ export class ExpenseDatabase extends BaseDatabase {
   public getExpensesByUserId = async (input: GetExpensesDataBaseInputDTO) => {
     const output: ExpenseDB[] = await BaseDatabase.connection(
       ExpenseDatabase.TABLE_EXPENSES
-    ).where({ id: input.id });
+    ).where({ creator_id: input.id });
 
     return output;
   };

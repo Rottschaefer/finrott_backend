@@ -19,10 +19,11 @@ SELECT*FROM users;
 CREATE TABLE expenses (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     creator_id TEXT NOT NULL ,
-    name TEXT UNIQUE NOT NULL,
+    name TEXT NOT NULL,
     spent REAL NOT NULL,
     to_spend REAL NOT NULL,
     created_at TEXT DEFAULT(DATETIME()) NOT NULL,
+    updated_at TEXT DEFAULT(DATETIME()) NOT NULL,
     Foreign Key (creator_id) REFERENCES users(id)
 );
 
@@ -30,6 +31,6 @@ DROP Table expenses;
 
 
 INSERT INTO expenses ( creator_id, name, spent, to_spend)
-VALUES("u001","Mobilidade2",10,200);
+VALUES("ebbc47b8-1c17-4017-a02c-b92d5bdac488","Mobilidade",10,200);
 
 SELECT*FROM expenses;

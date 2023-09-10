@@ -54,28 +54,31 @@ export class UserController {
 
       if (req.body.token) {
         const input = {
-          email: req.body.email,
-          password: req.body.password,
           token: req.body.token as string,
         };
 
-        message = await this.userBusiness.logIn(input);
+        const output = await this.userBusiness.logInWithToken(input);
 
+        message = output.message;
+
+        console.log(output.payload);
         if (message === "token válido") {
-          res.status(200).send("Token válido e Usuário logado");
+          res.status(200).send({ token: input.token, payload: output.payload });
         }
       }
-      if (message === "token inválido") {
+
+      if (message !== "token válido") {
         const input = LogInSchema.parse({
           email: req.body.email,
           password: req.body.password,
           token: req.body.token,
         });
 
-        const token = await this.userBusiness.logIn(input);
+        const outcome = await this.userBusiness.logIn(input);
 
         const output: LogInOutputDTO = {
-          token: token,
+          token: outcome.token,
+          payload: outcome.tokenPayload,
         };
 
         res.status(200).send(output);

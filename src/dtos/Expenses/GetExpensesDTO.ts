@@ -9,6 +9,7 @@ export interface GetExpensesDataBaseInputDTO {
 }
 
 export interface GetExpensesOutputDTO {
+  id: string;
   creatorId: string;
   name: string;
   spent: number;

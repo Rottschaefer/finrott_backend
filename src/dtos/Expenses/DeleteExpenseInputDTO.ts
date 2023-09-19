@@ -1,11 +1,11 @@
 import z from "zod";
 
 export interface DeleteExpensesInputDTO {
-  id: number;
+  id: string;
 }
 
 export const DeleteExpensesSchema = z
   .object({
-    id: z.number().min(1),
+    id: z.string().min(1),
   })
   .transform((data) => data as DeleteExpensesInputDTO);

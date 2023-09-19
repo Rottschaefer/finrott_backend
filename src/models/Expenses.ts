@@ -1,5 +1,5 @@
 export interface ExpenseDB {
-  // id: number;
+  id: string;
   creator_id: string;
   name: string;
   spent: number;
@@ -20,6 +20,7 @@ export interface ExpenseDB {
 export class Expense {
   constructor(
     // private id: number,
+    private id: string,
     private creatorId: string,
     private name: string,
     private spent: number,
@@ -28,13 +29,14 @@ export class Expense {
     private updatedAt: string
   ) {}
 
-  // public getId = (): number => {
-  //   return this.id;
-  // };
+  public getId = (): string => {
+    return this.id;
+  };
 
-  // public setId = (value: number) => {
-  //   return (this.id = value);
-  // };
+  public setId = (value: string) => {
+    return (this.id = value);
+  };
+
   public getCreatorId = (): string => {
     return this.creatorId;
   };

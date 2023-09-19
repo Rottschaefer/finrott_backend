@@ -60,15 +60,14 @@ export class ExpenseController {
       const input = UpdateExpenseInputSchema.parse({
         id: req.params.id,
         name: req.body.name,
-        spent: req.body.content,
+        spent: req.body.spent,
         toSpend: req.body.toSpend,
       });
 
       await this.expenseBusiness.updateExpense(input);
 
-      res.status(200);
+      res.status(200).send("Despesa atualizada com sucesso");
     } catch (error) {
-      console.log(error);
       if (error instanceof ZodError) {
         res.status(400).send(error.issues);
       } else if (error instanceof BaseError) {
@@ -87,9 +86,8 @@ export class ExpenseController {
 
       await this.expenseBusiness.deleteExpense(input);
 
-      res.status(200).send("Post deletado");
+      res.status(200).send("Despesa deletado");
     } catch (error) {
-      console.log(error);
       if (error instanceof ZodError) {
         res.status(400).send(error.issues);
       } else if (error instanceof BaseError) {

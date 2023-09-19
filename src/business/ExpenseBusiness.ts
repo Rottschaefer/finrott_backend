@@ -33,8 +33,11 @@ export class ExpenseBusiness {
       id: payload.id,
     });
 
+    console.log(expensesDB);
+
     const expenses = expensesDB.map((expenseDB) => {
       return new Expense(
+        expenseDB.id,
         expenseDB.creator_id,
         expenseDB.name,
         expenseDB.spent,
@@ -46,6 +49,7 @@ export class ExpenseBusiness {
 
     const output: GetExpensesOutputDTO[] = expenses.map((expense) => {
       return {
+        id: expense.getId(),
         creatorId: expense.getCreatorId(),
         name: expense.getName(),
         spent: expense.getSpent(),
@@ -71,7 +75,10 @@ export class ExpenseBusiness {
 
     const id = this.idGenerator.generate();
 
+    console.log(id);
+
     const newExpense = new Expense(
+      id,
       payload.id,
       name,
       spent,
@@ -81,6 +88,7 @@ export class ExpenseBusiness {
     );
 
     const newExpenseDB: ExpenseDB = {
+      id: newExpense.getId(),
       creator_id: newExpense.getCreatorId(),
       name: newExpense.getName(),
       spent: newExpense.getSpent(),

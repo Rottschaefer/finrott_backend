@@ -1,7 +1,7 @@
 import z from "zod";
 
 export interface UpdateExpenseInputDTO {
-  id: number;
+  id: string;
   name: string;
   spent: number;
   toSpend: number;
@@ -14,13 +14,13 @@ export interface UpdateExpenseInputDTO {
 export const UpdateExpenseInputSchema = z
   .object({
     id: z
-      .number({
+      .string({
         required_error: "id da expense é obrigatório para editá-lo",
-        invalid_type_error: "id da expense precisa ser number",
+        invalid_type_error: "id da expense precisa ser string",
       })
       .min(1),
     name: z.string({
-      required_error: "É necessário um 'name' para a requisição createExpense",
+      required_error: "É necessário um 'name' para a requisição updateExpense",
       invalid_type_error: "'name' precisa ser uma string",
     }),
     spent: z.number({ invalid_type_error: "'spent' precisa ser um number" }),

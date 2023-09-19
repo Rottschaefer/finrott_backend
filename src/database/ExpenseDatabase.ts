@@ -21,6 +21,7 @@ export class ExpenseDatabase extends BaseDatabase {
   public updateExpense = async (input: UpdateExpenseInputDTO) => {
     await BaseDatabase.connection(ExpenseDatabase.TABLE_EXPENSES)
       .update({
+        id: input.id,
         name: input.name,
         spent: input.spent,
         to_spend: input.toSpend,
@@ -29,7 +30,7 @@ export class ExpenseDatabase extends BaseDatabase {
       .where({ id: input.id });
   };
 
-  public deleteExpense = async (id: number) => {
+  public deleteExpense = async (id: string) => {
     await BaseDatabase.connection(ExpenseDatabase.TABLE_EXPENSES)
       .delete()
       .where({ id });
